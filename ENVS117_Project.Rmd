@@ -1,0 +1,236 @@
+---
+title: |
+  <center> Where Are Evictions Happening? </center>
+  <center> A Look at San Jose </center>
+pagetitle: "Where Are Evictions Happening? A Look at San Jose"
+author: "Vasudha Kumar"
+date: "_Published on March 17, 2021_"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include = TRUE, echo=FALSE, comment=NA, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(tmap)
+library(waffle)
+```
+
+<style>
+p.caption {
+  font-size: 0.8em;
+}
+</style>
+
+In 2016, landlords across the United States filed seven evictions [every minute](https://www.washingtonpost.com/outlook/2020/09/23/evictions-cdc-moratoriums-housing-homelessness). For tenants, these evictions cause not only displacement and loss of secure housing but also long-lasting impacts like job loss, poverty, depression, and worse access to future housing. The COVID-19 pandemic has exacerbated these impacts and led many to call it an ‘eviction crisis’, but tenants were facing a crisis even before the pandemic hit, with most residents only one missed paycheck away from homelessness. Given the social, economic, and public health impacts of eviction, it is crucial to study this crisis in order to effectively address it and reduce associated inequalities. In this report, I examine data collected by the Rent Stabilization Board in San Jose, California to explore the eviction landscape in the tenth largest city in the nation.
+
+***
+<div align="center"> 
+
+## Background
+
+<div align="left"> 
+### *Understanding Eviction*
+
+An eviction happens when a landlord expels their tenant(s) from their property. Over the last few years, researchers have identified a close link between the eviction crisis and a lack of affordable housing, especially as the vast majority of eviction cases allege non-payment of rent. Therefore, it is the result of three [factors](https://scholar.harvard.edu/files/mdesmond/files/desmondkimbro.evictions.fallout.sf2015_2.pdf): soaring housing costs, stagnant or falling incomes, and a lack of federal assistance. More than half of [poor renters](https://www.sciencedirect.com/science/article/abs/pii/S0049089X16300977) spend at least 50 percent of their income on rent, with a quarter spending more than 70 percent. Nationally, assistance to renting households continues to see [cutbacks](https://www.sciencedirect.com/science/article/abs/pii/S0049089X16300977), and a majority of renters do not benefit from federal housing programs. Additionally, due to the racist history of housing laws in the United States (in addition to landlord discrimination), Black and Latinx renters are [disproportionately](https://evictionlab.org/demographics-of-eviction/) threatened with evictions and disproportionately evicted from their homes, with one lawsuit claiming that Black renters were [four times](https://www.americanprogress.org/issues/poverty/reports/2019/10/02/475263/right-counsel-right-fighting-chance/) more likely than their white counterparts to have evictions filed against them.
+
+<div align="center"> 
+![Photo by Detroit Free Press, 2021](/Users/vasudha/Desktop/ENVS 117/Project/Project_Images/detroitfreepress.jpeg){width=60%}
+
+<div align="left"> 
+
+On the neighborhood level, many believe gentrification to be another major factor associated with eviction; however, a nationwide [study](https://www.sciencedirect.com/science/article/abs/pii/S0049089X16300977) found no evidence that renters residing in gentrifying neighborhoods were more vulnerable to eviction. Instead, it found a higher likelihood among renting families in disadvantaged neighborhoods. Still, neighborhoods at risk of gentrification do experience rent hikes and displacement, a process exacerbated by the presence of tech campuses in the Silicon Valley. According to some organizations in San Jose, Google’s upcoming mega-campus development could cost renters [$235 million](https://www.wpusa.org/files/reports/GoogleRentHike.pdf) in higher rent each year.
+
+Evictions have adverse impacts on tenants. Regarding mental and physical health, there is considerable [consensus](https://www.sciencedirect.com/science/article/pii/S0277953617300102) that expulsion from housing can lead to depression, anxiety, severe distress, suicide, poor self-reported health, chronic diseases, and high blood pressure. They can also cause homelessness both directly and indirectly: a 2017 [study](https://nlchp.org/wp-content/uploads/2018/10/ProtectTenants2018.pdf) in New York found that eviction is the second leading cause of homelessness among families with children, and researchers have found similar patterns across the country. Once expelled from secure housing, tenants also face significant difficulties in accessing housing again because evictions, as a matter of credit histories and public record, can haunt tenants long after initial displacement. Due to social and economic inequalities, renters of color bear disproportionate harms of these effects which are even worse for households with [children](https://link.springer.com/article/10.1007/s13524-018-0735-y). Facing eviction and displacement during childhood creates life-long detriments through increased school absence, poor health, and even increased child maltreatment. The material hardships linked with evictions have led some scholars to conclude that eviction is not only a consequence of poverty, but also a [cause](https://www.journals.uchicago.edu/doi/full/10.1086/666082?casa_token=42YXiJTte-YAAAAA%3Ax9DTJgrdjvw3lIB8zAOhtVGrVrgkYpDRF5Imyi7AAsZBtlg7y2TxIXsHOXR8RRWYtQeUXy_fH5w).
+
+<div align="left"> 
+### *Landscape in San Jose, California*
+The city of San Jose is the third most expensive place to rent in the United States. In 2019, almost [half](https://www.wpusa.org/files/reports/WhenRentersRiseOurCityThrives.pdf) of all renters were rent-burdened, i.e., spent more than 30 percent of their income on rent, and over a quarter of renters spent more than 50 percent of their income on rent. There are [no neighborhoods](https://www.wpusa.org/files/reports/WhenRentersRiseOurCityThrives.pdf) in San Jose affordable for a household of two minimum-wage earners. According to researchers and local housing groups, these economic pressures contribute to displacement of low-income residents and communities of color. 
+
+In 2017, the San Jose City Council approved the [Tenant Protection Ordinance (TPO)](https://www.sanjoseca.gov/home/showdocument?id=14345) that increased protections for tenants by eliminating no-cause vacancy notices. The TPO requires that landlords of multifamily dwellings file notices to terminate tenancy with the City’s Rent Stabilization Board to ensure that tenants are evicted only for one of thirteen "just causes." In 2018-19, over [93 percent](https://www.sanjoseca.gov/home/showpublisheddocument?id=40891) of termination of tenancy notices were due to non-payment of rent. 
+
+<div align="left"> 
+### *Notes on TPO*
+The TPO requires all apartment landlords to file termination of tenancy notices with the Rent Stabilization Board. These notices, however, are distinct from an eviction or unlawful detainer, which refers to the legal proceeding to forcibly expel a tenant and is carried out through county courts. In 2018, only about [7 percent](https://www.sanjoseca.gov/home/showpublisheddocument?id=40891) of cases to terminate tenancy went through Santa Clara County’s unlawful detainer or eviction process. Still, according to California’s only tenants’ rights organization, [Tenants Together](https://www.tenantstogether.org/sites/tenantstogether.org/files/CA_Evictions_are_Fast_and_Frequent.pdf), notices to terminate tenancy provide a more comprehensive analysis of evictions and displacement in California: 
+
+>“Most evictions do not go through the court process since landlords give eviction notices prior to the filing of unlawful detainer eviction lawsuits. Tenants who are served with this first notice to terminate tenancy know that they have limited rights and limited access to legal representation. In many cases, landlords serve a notice and tenants just move out. For every tenant facing a court filed eviction, there are others displaced from their homes who do not show up in court filing data because they moved by the end of the notice period.”
+
+There is no statewide data on notices to terminate tenancy, severely limiting the ability of researchers to study eviction in a holistic manner. In San Jose, however, the Rent Stabilization Board has maintained a record of all notices filed since the approval of the TPO in 2017. In this report, I use these notices as an indicator of the eviction landscape in San Jose.  
+
+***
+<div align="center">
+## Analysis
+</div>
+First, I will examine how notices varied across a two-and-a-half year period, from July 2018 to January 2021. Specifically, I'm interested in whether monthly notice counts showed any changes in trends before and after the San Jose City Council sold public land to Google for its upcoming mega-campus development. 
+
+```{r,fig.cap = "Fig 1: Notices to Terminate Tenancy, by Month. Red lines indicate 1) Google land sale and 2) COVID-19 pandemic onset.", fig.width = 15, fig.height = 5, fig.pos="center"}
+load(file = "/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Plot_MontlyEvictions.RData")
+plot_evic
+```
+
+Examining data from before the onset of the COVID-19 pandemic, the number of notices every month does show some variation, from a pre-COVID low of 539 notices in November 2018 to a maximum of 982 notices in September 2019. But there is little consistency in any month-to-month changes, so it still may be too early to observe the effects of Google’s upcoming move. The below visualization attempts to pick up any spatial changes regarding where notices were served from January 2019 to December 2019, but there is little variation in the spatial distribution as well.
+<div align="center"> 
+![Fig 2: Notices in San Jose, 2019, by Month](/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Animated_MonthlyEvictions19.gif)
+
+<div align="left"> 
+Aside from the impact of tech-driven gentrification, it is also important to note the decline in notices (Figure 1) prompted by the COVID-19 pandemic. A patchwork of state, county, and city moratoriums on evictions has protected some renters during this period; however, the spike from September 2020 to December 2020 is concerning. Again, notices to terminate tenancy are not a perfect measure of eviction, but given that tenants’ rights are often complex and poorly understood, in addition to the fact that San Jose does not have a right to counsel, it is likely that many tenants self-evicted upon receiving a notice. These numbers can also be seen as an indicator of lack of knowledge of housing law among landlords who continued to serve notices despite moratoriums. 
+
+***
+As data collected by the Rent Stabilization Board does not contain information on tenant demographics, I use 2019 Census tract level demographic data to draw connections between notices and demographic characteristics. The rest of this analysis uses notice data exclusively from 2019 as the last full calendar year before the pandemic.
+
+<div align="left"> 
+### *Neighborhood Analysis: Race*
+As explained earlier, Black renters face eviction at some of the highest rates. In some communities, the percentage of Black people in a neighborhood is a greater [predictor](https://theappeal.org/the-lab/explainers/the-american-eviction-crisis-explained/) of eviction filings than the poverty level. Despite San Jose’s low Black population, it is still possible that this trend holds. Nationally, Hispanic and Latinx households also experience evictions at disproportionate rates, so the spatial distribution of termination notices below is overlaid on a map of percentage of Black (left) and Hispanic (right) households in each Census tract. Only Census tracts with notice counts higher than the city average (36) are associated with a red bubble, and bigger bubbles indicate a higher notice count. 
+
+<div align="left">
+```{r}
+load("/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Map_Black.RData")
+load("/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Map_Hisp.RData")
+tmap_mode("view")
+tmap_arrange(Map_Black, Map_Hisp)
+```
+<div align="left">
+As the first map indicates, almost all neighborhoods in the fourth quartile of Black population exhibit notice counts higher than the overall city number, but this pattern is less consistent for tracts with high Hispanic populations. This does not mean that Hispanic/Latinx renters are not being evicted – using neighborhood-level data paints only a partial picture. Additionally, according to some [researchers](https://www.sciencedirect.com/science/article/abs/pii/S0049089X16300977), landlords in low-income Hispanic-majority neighborhoods may not be able to replace tenants with, for example, a more financially secure family and, thus, have less incentive to evict them. On the other hand, even though the highest percentage of Black residents in any Census tract is only about twenty percent, those neighborhoods still saw higher notices in 2019. Tracts where the population of Black people was more than five (5) percent saw an average of sixty-four (64) notices per tract, whereas tracts with less than one (1) percent population of Black population experienced only about five (5). Over the last few decades, the Bay Area has seen an [exodus](https://antievictionmap.com/dislocationblack-exodus) of Black people due to a spike in rents, tech-driven gentrification, and discrimination; looking at this data, this pattern seems to persist, displacing even those who remain.
+
+<div align="left">
+### *Neighborhood Impact: Children*
+Research looking at the household characteristics of those evicted found that having children is the single greatest predictor of eviction. (Just before the pandemic, a group of [Black mothers](https://www.vice.com/en/article/bvgnmm/moms-4-housing-occupied-a-vacant-house-in-oakland-eviction) reclaimed a property in Oakland that had been vacant since the 2008 crisis, declaring that housing is a human right. They were violently evicted from their home by sheriffs with military grade weapons and ballistic vehicles.) Landlords are often eager to rid themselves of tenants whose children might cause noise complaints or property damage, or [“for whom lead hazards have to be abated or child services called,”](https://newrepublic.com/article/161578/landlords-target-mothers-eviction-crisis-covid) and a missed rental payment provides an easy excuse. Therefore, next, I look at the percentage of households with children in each tract.
+
+<div align="center">
+```{r}
+load("/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Map_Child.RData")
+tmap_mode("view")
+Map_Child
+```
+
+<div align="left">
+In each of the four quartiles, the average number of notices served per tract was 30, 20, 42, and 53, respectively. Hence, tracts in the highest two quartiles, i.e., tracts where more than 45 percent of households had children, did experience more notices per tract. Without a more defined relationship, however, it is unclear how closely children are associated with a higher number of notices served. 
+
+<div align="left"> 
+
+### *Neighborhood Impact: Gentrification Typology*
+In 2015, the Urban Displacement Project at UC Berkeley created a scheme of data and maps in order to better understand and predict where displacement and gentrification was happening and would happen. To look at correlations between gentrification and eviction, I use UDP data that offers a neighborhood typology for each Bay Area tract. (Information on the characteristics on each typology can be found on UDP’s [website](https://www.urbandisplacement.org/san-francisco/sf-bay-area-gentrification-and-displacement).) For easier interpretation, I collapsed UDP’s eight tract categories down to five, plus an additional Insufficient Data category. My categorization of these broader types in relation to UDP’s is at the end of this report. 
+
+<div align="center">
+```{r, fig.cap = "Fig 3: San Jose Census Tracts: Gentrification Typology"}
+load("/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/viz.displ.RData")
+viz_displ
+```
+
+<div align="left">
+
+The visualization above shows how San Jose’s 241 tracts are distributed across the various gentrification categories. There are about 38 percent `Stable` tracts, 35 percent `At Risk` of gentrification, 21 percent with signs of `Advanced` gentrification, 3 percent currently `Ongoing` gentrification, about 2 percent with a `High Student Population`, and less than 1 percent with `No Data`. 
+
+The following map shows the relationship between notices served and gentrification categories.
+
+<div align="left">
+
+```{r}
+load(file = "/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Map_Displ.RData")
+Map_Displ
+```
+
+
+<div align="left">
+Notices seem to be concentrated in tracts that are `At Risk` (dark purple) or `Stable` (dark green); however, this conclusion could be misdirected because there are simply more tracts that are At Risk or Stable. Thus, the below chart shows the average number of notices served per tract, by tract typology. 
+
+<div align="center">
+```{r, fig.cap = "Fig 4: Average Notices Served per Tract in 2019, by Displacement Typology"}
+load("/Users/vasudha/Desktop/ENVS 117/Project/Project_Maps/Plot_Displ.RData")
+Plot_Displ
+```
+
+<div align="left">
+Tracts that with a `High Student Population` (HSP) show the greatest number of notices per tract, followed by `Stable` tracts, `At Risk` tracts, tracts with `Advanced` gentrification, and finally tracts with `Ongoing` Gentrification. It is notable that both tracts `At Risk` of gentrification and those that are `Stable` show notice counts higher than the city average of 36. 
+Additionally, of the four HSP tracts (with an average of 56 notices per tract), three are located near San Jose State University, and the high amount of notices served indicates that SJSU students and/or staff are experiencing adverse housing circumstances. This finding aligns with previous research which found that SJSU has the highest number of [unhoused students](https://abc7news.com/san-jose-state-students-homeless-student-housing-tuition/4849381/) across the CSU system at 4,300 students. Nationally, the largest [study](https://hope4college.com/wp-content/uploads/2018/09/Wisconsin-HOPE-Lab-Still-Hungry-and-Homeless.pdf) assessing the basic needs of college students found that more than a third were housing insecure. Hence, the finding of this report sheds necessary light on the precarious housing situation of college students, a group that is still understudied in relation to housing insecurity. 
+
+***
+<div align="center"> 
+## Looking Forward
+<div align="left"> 
+The COVID-19 pandemic has put the eviction crisis, which often evades public scrutiny, in the spotlight. Over the next few months, as more moratorium protections start expiring and rent accrued over the months becomes due, organizers expect a flood of evictions across California. This analysis of notices to terminate tenancy is crucial because even if families are able to leave without evictions on their records, landlords can still damage their access to future housing through credit histories and tenant screening software. Hurting tenants further are cuts to funding for affordable housing and temporary shelters as well as municipal [“sweeps”](https://sanjosespotlight.com/activists-protest-sweep-of-san-jose-homeless-camp-call-it-a-photo-op/) of systematic encampments. With Black people, children, and students most impacted by the notices at the center of this report, this crisis will not go away unless tenants are allowed to _remain_ in safe and secure housing. 
+
+To reduce the housing insecurity that follows eviction, the federal government must pass the [Rent and Mortgage Cancellation Act](https://omar.house.gov/media/press-releases/rep-ilhan-omar-introduces-rent-and-mortgage-cancellation-act) and cancel all rent debt accrued during the pandemic. Additionally, state and municipal officials should expand rental assistance and long-term affordable housing programs so tenants can avoid eviction and displacement. Included in such policies should be measures that explicitly center groups most at-risk, especially households with children and Black people, whose forced [exodus](https://calmatters.org/projects/california-black-population-exodus/) from the Bay Area continues to accelerate. The state should also expand tenants’ ability to seal prior eviction records so that eviction blacklisting does not impact future housing. Lastly, San Jose and Santa Clara County should ensure tenants have [right to counsel](https://evictiondefense.org/services/right-to-counsel/#:~:text=What%20is%20Tenant%20Right%20to%20Counsel%20%E2%80%93%20Prop%20F&text=Under%20the%20%E2%80%9CNo%20Eviction%20without,right%20to%20a%20free%20attorney.), i.e., guaranteed legal representation in housing matters, a measure that has seen [success](https://www.aclu.org/news/racial-justice/tenants-right-to-counsel-is-critical-to-fight-mass-evictions-and-advance-race-equity-during-the-pandemic-and-beyond/) in many other cities.
+
+
+<div align="center"> 
+![Photo by ANTIGRAVITY Magazine, 2019](/Users/vasudha/Desktop/ENVS 117/Project/Project_Images/ANTIGRAVITY.jpeg){width=60%}
+
+<div align="left"> 
+Although this report highlights that Black people, children, and students face disproportionate harms of eviction, the data has its limitations. San Jose’s Rent Stabilization Board records notices only at properties that are protected under the city’s Tenant Protection Ordinance, i.e., about a third. Due to limited city-level data on the spatial distribution of housing units covered under TPO, I could not control for them in this report, so expanding protections for all tenants would not only help renters but also enable more rigorous research on the impacts of eviction. 
+
+For future studies, researchers should reconsider the _kinds_ of evictions they study. [Eviction Lab](https://evictionlab.org/), the only nationwide database of evictions, examines data from court orders and excludes actions with equally devastating impacts, like illegal lockouts and self-help evictions. Thus, researchers who can access municipal level data should look into notices to terminate tenancy (or their equivalents in other states) to enhance our understanding of eviction and displacement. Lastly, future studies must also look beyond legal or procedural definitions of eviction itself. For example, university housing residents in California have few tenants’ [rights](https://sf.curbed.com/2020/4/17/21224029/bay-area-students-housing-coronavirus-schools-covid) and were essentially evicted without recourse during the pandemic; regardless of the public health driven reasons for their displacement, low-income and housing insecure students were hardest hit by university decisions Similarly, those living in shelters, support homes, or public parks without permanent housing face frequent displacement and remain at the mercy of local officials. The impacts of eviction and displacement are grave and long-lasting, and additional research could boost housing organizers’ demands for greater state support and protection.
+
+***
+<div align="center">
+## Data Sources and Use
+</div>
+1. RScripts for this project can be found [here](https://github.com/kvas3/ENVS117).
+
+2. Thank you to Viviane Nguyen at the Rent Stabilization Program, San Jose Housing Department for helping me obtain data on notices to terminate tenancy filed in San Jose.
+
+3. UDP's Gentrification/Displacement Typologies for the Bay Area can be found [here](https://github.com/urban-displacement/displacement-typologies/tree/main/data/downloads_for_public). I combined the categories in their dataset as: 
+    + `At Risk` ~ `Low-Income/Susceptible to Displacement` + `At Risk of Becoming Exclusive`
+    + `Ongoing` ~ `Early/Ongoing Gentrification` + `Becoming Exclusive`
+    + `Advanced` ~ `Stable/Advanced Exclusive` + `Advanced Gentrification`
+    + `Stable` ~ `Stable Moderate/Mixed Income`
+    + `High Student Population` ~ `High Student Population`
+    + `No Data` ~ `Unavailable or Unreliable Data`
+    + UDP's categories `Ongoing Displacement` and `At Risk of Gentrification` were not present in San Jose.
+  
+***
+<div align="center">
+## References
+</div>
+* Anti-Eviction Mapping Project. (2019). _(Dis)location/Black Exodus_. Retrieved from https://antievictionmap.com/dislocationblack-exodus
+
+* Benfer, E. (2021). _The American Eviction Crisis, Explained_. The Appeal. Retrieved from https://theappeal.org/the-lab/explainers/the-american-eviction-crisis-explained/.
+
+* Covert, B. (2021, March 16). _Why Landlords Target Mothers for Eviction_. The New Republic. Retrieved from https://newrepublic.com/article/161578/landlords-target-mothers-eviction-crisis-covid
+
+* Desmond, M. (2012). Eviction and the reproduction of urban poverty. _American journal of sociology_, 118(1), 88-133. https://doi.org/10.1086/666082
+
+* Desmond, M., & Gershenson, C. (2017). Who gets evicted? Assessing individual, neighborhood, and network factors. _Social science research_, 62, 362-377. https://doi.org/10.1016/j.ssresearch.2016.08.017
+
+* Desmond, M., & Kimbro, R. T. (2015). Eviction's fallout: housing, hardship, and health. _Social forces_, 94(1), 295-324. https://doi.org/10.1093/sf/sov044
+
+* Durana, A. & and Alexander, A. K. (2020, September 23). The eviction crisis has begun. It will get so much worse. _The Washington Post_. Retrieved from https://www.washingtonpost.com/outlook/2020/09/23/evictions-cdc-moratoriums-housing-homelessness
+
+* Eviction Defense Collaborative. (2018). _Tenant Right to Counsel_. Retrieved from https://evictiondefense.org/services/right-to-counsel/#:~:text=What%20is%20Tenant%20Right%20to%20Counsel%20%E2%80%93%20Prop%20F&text=Under%20the%20%E2%80%9CNo%20Eviction%20without,right%20to%20a%20free%20attorney
+
+* Goldrick-Rab, S., Richardson J., Schneider, J., Hernandez, A., and Cady, C. (2018). _Still Hungry and Homeless In College_. Wisconsin Hope Lab. Retrieved from https://hope4college.com/wp-content/uploads/2018/09/Wisconsin-HOPE-Lab-Still-Hungry-and-Homeless.pdf
+
+* Hepburn, P. (2020, December 16). _Racial and Gender Disparities among Evicted Americans_. Eviction Lab. Retrieved from https://evictionlab.org/demographics-of-eviction/
+
+* Hepler, L. (2020). _The hidden toll of California’s Black exodus_. CalMatters. Retrieved from https://calmatters.org/projects/california-black-population-exodus/
+
+* Lundberg, I., & Donnelly, L. (2019). A research note on the prevalence of housing eviction among children born in US cities. _Demography_, 56(1), 391-404. https://doi.org/10.1007/s13524-018-0735-y
+ 
+* National Law Center on Homelessness and Poverty. (2018). _Protect Tenants, Prevent Homelessness_. Retrieved from https://nlchp.org/wp-content/uploads/2018/10/ProtectTenants2018.pdf
+
+* Nguyen, C. (2018). _San Jose State University has highest number of homeless students across CSU system_. ABC7 News. Retrieved from https://abc7news.com/san-jose-state-students-homeless-student-housing-tuition/4849381/
+
+* Office of Rep. Ilhan Omar. (2021, March 11). _Rep. Ilhan Omar Introduces Rent and Mortgage Cancellation Act_ [Press Release]. Retrieved from https://omar.house.gov/media/press-releases/rep-ilhan-omar-introduces-rent-and-mortgage-cancellation-act
+
+* Park, S., & Pollock, J. (2021, January 12). _Tenants’ Right to Counsel is Critical to Fight Mass Evictions and Advance Race Equity During the Pandemic and Beyond_. ACLU. https://www.aclu.org/news/racial-justice/tenants-right-to-counsel-is-critical-to-fight-mass-evictions-and-advance-race-equity-during-the-pandemic-and-beyond/
+
+* Paulas, R. (2020, January 15). _The Black Moms Who Occupied a Vacant House and Became Icons of the Homelessness Crisis_. VICE News. Retrieved from https://www.vice.com/en/article/bvgnmm/moms-4-housing-occupied-a-vacant-house-in-oakland-eviction
+
+* Perigo, S. (2020, April 17). _Bay Area students face housing insecurity after coronavirus-related school closures._ San Francisco Curbed. Retrieved from https://sf.curbed.com/2020/4/17/21224029/bay-area-students-housing-coronavirus-schools-covid
+
+* San Jose Rent Stabilization Program. (2018). _Rental Guide for Owners and Tenants._ Retrieved from https://www.sanjoseca.gov/home/showdocument?id=14345
+
+* San Jose Rent Stabilization Program. (2019). _Annual Report._ Retrieved from https://www.sanjoseca.gov/home/showpublisheddocument?id=40891
+
+* Schultheis, H. & Rooney, C. (2019, October 2). _A Right to Counsel Is a Right to a Fighting Chance. Center for American Progress._ Retrieved from https://www.americanprogress.org/issues/poverty/reports/2019/10/02/475263/right-counsel-right-fighting-chance/
+
+* Tenants Together. (2018). _California Evictions are Fast and Frequent._ Retrieved from https://www.tenantstogether.org/sites/tenantstogether.org/files/CA_Evictions_are_Fast_and_Frequent.pdf
+
+* Vásquez-Vera, H., Palència, L., Magna, I., Mena, C., Neira, J., and Borrell, C. (2017). The threat of home eviction and its effects on health through the equity lens: a systematic review. _Social science & medicine,_ 175, 199-208. https://doi.org/10.1016/j.socscimed.2017.01.010
+
+* Working Partnerships USA. (2018). _When Renters Rise, Our City Thrives._ https://www.wpusa.org/files/reports/WhenRentersRiseOurCityThrives.pdf
+
+* Working Partnerships USA. (2019). _The Google Rent Hike._ https://www.wpusa.org/files/reports/GoogleRentHike.pdf
+
